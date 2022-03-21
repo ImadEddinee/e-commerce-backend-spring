@@ -13,10 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "COUNTRY")
 public class Country {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "country",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "country",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
     private List<City> cities;
 }

@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "CUSTOMER")
 public class Customer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,9 +37,10 @@ public class Customer {
     @Nullable
     private String address;
     @ManyToOne
+    @JoinColumn(name = "city_id",referencedColumnName = "id")
     private City city;
     @OneToOne(mappedBy = "customer")
     private ShoppingCart shoppingCart;
-    @OneToMany()
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     private List<Order> orders;
 }

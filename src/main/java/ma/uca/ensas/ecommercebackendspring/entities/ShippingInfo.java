@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "SHIPPING_INFO")
 public class ShippingInfo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +23,6 @@ public class ShippingInfo {
     @Lob
     private String description;
     private BigDecimal shippingCost;
-    @OneToMany
+    @OneToMany(mappedBy = "shippingInfo")
     private List<Order> orders;
 }

@@ -1,6 +1,7 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
-public enum ShippingType {
-    DELIVERY,
-    TO_TAKE
+public enum PaymentCurrency {
+    DH,
+    US,
+    Euro
 }

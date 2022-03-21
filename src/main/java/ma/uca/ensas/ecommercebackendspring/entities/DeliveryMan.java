@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "DELIVERY_MAN")
 public class DeliveryMan {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +29,6 @@ public class DeliveryMan {
     @Nullable
     private String address;
     private String phoneNumber;
-    @OneToMany
+    @OneToMany(mappedBy = "deliveryMan")
     private List<Order> orders;
 }

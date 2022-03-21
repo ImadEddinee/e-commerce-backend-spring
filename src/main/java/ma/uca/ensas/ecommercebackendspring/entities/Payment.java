@@ -7,24 +7,25 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "ORDER_DETAIL")
-public class OrderDetail {
+@Table(name = "PAYMENT")
+public class Payment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal discount;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+    private LocalDateTime paymentDate;
+    @Enumerated(EnumType.STRING)
+    private PaymentCurrency paymentCurrency;
+    private String address;
     private BigDecimal total;
     @OneToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "id")
-    private Order order;
-    @ManyToMany(mappedBy = "orderDetailList")
-    private List<Product> products;
-    @OneToOne(mappedBy = "orderDetail")
-    private Payment payment;
+    @JoinColumn(name = "orderDetail_id",referencedColumnName = "id")
+    private OrderDetail orderDetail;
 }
