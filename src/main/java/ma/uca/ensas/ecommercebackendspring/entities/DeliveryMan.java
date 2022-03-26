@@ -1,9 +1,6 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -12,10 +9,10 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "DELIVERY_MAN")
 public class DeliveryMan {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

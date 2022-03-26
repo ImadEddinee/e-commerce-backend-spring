@@ -1,19 +1,16 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@Data
+@Getter
+@Setter
 @DiscriminatorValue("P")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Person extends Merchant{
 
     private String firstName;

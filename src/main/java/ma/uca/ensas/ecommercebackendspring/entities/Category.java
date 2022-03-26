@@ -1,9 +1,6 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.catalina.LifecycleState;
 
 import javax.persistence.*;
@@ -11,10 +8,10 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "CATEGORY")
 public class Category {
     @Id

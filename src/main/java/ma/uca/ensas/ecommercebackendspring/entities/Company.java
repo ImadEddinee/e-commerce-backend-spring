@@ -6,12 +6,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@Data
+@Getter
+@Setter
 @ToString(callSuper = true)
 @DiscriminatorValue("C")
 @AllArgsConstructor()
 @NoArgsConstructor
-@Builder
 public class Company extends Merchant{
 
     private String name;

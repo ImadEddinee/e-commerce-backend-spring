@@ -1,23 +1,26 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "COUNTRY")
 public class Country {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public Country(String name) {
+        this.name = name;
+    }
+
     @OneToMany(mappedBy = "country",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL

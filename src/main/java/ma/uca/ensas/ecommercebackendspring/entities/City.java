@@ -1,23 +1,26 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "CITY")
 public class City {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public City(String name, Country country) {
+        this.name = name;
+        this.country = country;
+    }
+
     @ManyToOne
     @JoinColumn(name = "country_id",referencedColumnName = "id")
     private Country country;
