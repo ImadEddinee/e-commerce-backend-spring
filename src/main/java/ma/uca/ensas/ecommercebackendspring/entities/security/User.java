@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -28,6 +29,7 @@ public class User implements UserDetails {
     private String email;
     private String phone;
     private String address;
+    @Singular
     @ManyToMany(
             cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER
