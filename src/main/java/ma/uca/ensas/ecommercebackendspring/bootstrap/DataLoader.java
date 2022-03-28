@@ -26,6 +26,7 @@ public class DataLoader implements CommandLineRunner {
     private final AuthorityRepository authorityRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -73,22 +74,15 @@ public class DataLoader implements CommandLineRunner {
                 Authority.builder().permission("get_orders").build()
         );
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         log.info("Creating Roles ...");
         Role adminRole = roleRepository.save(
-                Role.builder().name("ADMIN")
-                        .authorities(Set.of(createMerchant,createCategorie,createReference,createProduct,getReference,getProduct,getCategory,getMerchant,getOrders))
-                        .build()
+                Role.builder().name("ADMIN").build()
         );
         Role merchantRole = roleRepository.save(
-                Role.builder().name("MERCHANT").authorities(
-                        Set.of(createCategorie,getCategory,getOrders,createProduct,getProduct,getReference,getMerchant))
-                        .build()
+                Role.builder().name("MERCHANT").build()
         );
-        Role userRole = roleRepository.save(
-                Role.builder().name("USER").authorities(
-                        Set.of(getProduct)).build()
-        );
+        adminRole.setAuthorities(Set.of(createMerchant, createCategorie, createReference, createProduct, getReference, getProduct, getCategory, getMerchant, getOrders));
+        merchantRole.setAuthorities(Set.of(createCategorie, getCategory, getOrders, createProduct, getProduct, getReference, getMerchant));
 
         log.info("Creating Users");
         userRepository.save(User.builder()
@@ -108,6 +102,7 @@ public class DataLoader implements CommandLineRunner {
                 .username("youssef")
                 .password(passwordEncoder.encode("merchant"))
                 .email("email@gmail.com")
+                .role(merchantRole)
                 .build()
         );
 

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UserDto> getAllUsers(); // TODO : change list with a page
+    String getAllUsers(); // TODO : change list with a page
 
 }

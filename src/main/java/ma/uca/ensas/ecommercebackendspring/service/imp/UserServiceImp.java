@@ -21,8 +21,10 @@ import java.util.List;
 public class UserServiceImp implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("Loading user : {}",username);
         User user = userRepository.findByUsername(username) // TODO : Add Custom Exceptions
                 .orElseThrow(() -> new IllegalStateException("user doesn't exists"));
         return new org.springframework.security.core.userdetails
@@ -30,7 +32,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
-        return null;
+    public String getAllUsers() {
+        return "hi";
     }
 }
