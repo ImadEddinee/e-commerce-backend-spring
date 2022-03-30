@@ -2,12 +2,14 @@ package ma.uca.ensas.ecommercebackendspring.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.uca.ensas.ecommercebackendspring.dto.UserDto;
 import ma.uca.ensas.ecommercebackendspring.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -18,9 +20,24 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public String getAllUsers(){
-        log.info("accessing method");
-        return "hi";
+    public ResponseEntity<List<UserDto>> getAllUsers(){
+        return new ResponseEntity<>(userService.getAllUsers(),HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id){
+        return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable("id") Long id){
+        userService.deleteUserById(id);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@RequestBody @Valid UserDto userDto) {
+        userService.updateUser(userDto);
+    }
 }

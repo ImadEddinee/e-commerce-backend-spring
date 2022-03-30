@@ -15,6 +15,7 @@ import java.util.List;
 public class ShoppingCart {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
     private Customer customer;

@@ -4,6 +4,7 @@ import lombok.*;
 import org.apache.catalina.LifecycleState;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -17,11 +18,12 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "Name is required")
+    @NotBlank
     private String name;
     @Lob
-    @NotEmpty(message = "Description is required")
+    @NotBlank
     private String description;
+    private String imageBase64;
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 }

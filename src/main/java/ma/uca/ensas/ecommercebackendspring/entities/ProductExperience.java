@@ -3,6 +3,7 @@ package ma.uca.ensas.ecommercebackendspring.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -13,9 +14,9 @@ import javax.validation.constraints.NotEmpty;
 public class ProductExperience {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "Review title is required")
+    @NotBlank
     private String reviewTitle;
-    @NotEmpty(message = "Review Body is required")
+    @NotBlank
     @Lob
     private String reviewBody;
     @ManyToOne

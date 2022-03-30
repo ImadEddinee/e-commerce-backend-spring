@@ -3,6 +3,7 @@ package ma.uca.ensas.ecommercebackendspring.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,7 @@ import java.util.List;
 public class City {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
 
     public City(String name, Country country) {
