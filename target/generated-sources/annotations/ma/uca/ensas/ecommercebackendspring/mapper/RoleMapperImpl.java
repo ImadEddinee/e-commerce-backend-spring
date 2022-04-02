@@ -1,7 +1,5 @@
 package ma.uca.ensas.ecommercebackendspring.mapper;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.Generated;
@@ -12,12 +10,11 @@ import ma.uca.ensas.ecommercebackendspring.dto.RoleDto.RoleDtoBuilder;
 import ma.uca.ensas.ecommercebackendspring.entities.security.Authority;
 import ma.uca.ensas.ecommercebackendspring.entities.security.Authority.AuthorityBuilder;
 import ma.uca.ensas.ecommercebackendspring.entities.security.Role;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Role.RoleBuilder;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-29T17:09:12+0000",
+    date = "2022-04-02T18:50:17+0000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component
@@ -44,13 +41,13 @@ public class RoleMapperImpl implements RoleMapper {
             return null;
         }
 
-        RoleBuilder role = Role.builder();
+        Role role = new Role();
 
-        role.id( roleDto.getId() );
-        role.name( roleDto.getName() );
-        role.authorities( authorityDtoSetToAuthorityCollection( roleDto.getAuthorities() ) );
+        role.setId( roleDto.getId() );
+        role.setName( roleDto.getName() );
+        role.setAuthorities( authorityDtoSetToAuthoritySet( roleDto.getAuthorities() ) );
 
-        return role.build();
+        return role;
     }
 
     protected AuthorityDto authorityToAuthorityDto(Authority authority) {
@@ -92,16 +89,16 @@ public class RoleMapperImpl implements RoleMapper {
         return authority.build();
     }
 
-    protected Collection<Authority> authorityDtoSetToAuthorityCollection(Set<AuthorityDto> set) {
+    protected Set<Authority> authorityDtoSetToAuthoritySet(Set<AuthorityDto> set) {
         if ( set == null ) {
             return null;
         }
 
-        Collection<Authority> collection = new ArrayList<Authority>( set.size() );
+        Set<Authority> set1 = new HashSet<Authority>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
         for ( AuthorityDto authorityDto : set ) {
-            collection.add( authorityDtoToAuthority( authorityDto ) );
+            set1.add( authorityDtoToAuthority( authorityDto ) );
         }
 
-        return collection;
+        return set1;
     }
 }

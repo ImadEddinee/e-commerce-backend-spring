@@ -14,6 +14,13 @@ spring:
   h2:
     console:
       enabled: true
+############### Mail Properties ###############
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: a95ab58c98a5a0
+    password: 22475eb1b6a678
+    protocol: smtp
 
 #spring:
 #  datasource:

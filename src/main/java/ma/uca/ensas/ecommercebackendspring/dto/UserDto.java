@@ -20,6 +20,7 @@ public class UserDto {
     @NotBlank
     @Size(min = 4,max = 25)
     private String username;
+    @NotBlank
     private String password;
     @NotBlank
     private String firstname;
@@ -30,5 +31,6 @@ public class UserDto {
     private String email;
     private String phone;
     private String address;
+    private boolean enabled;
     private Set<RoleDto> roles;
 }

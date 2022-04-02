@@ -1,5 +1,7 @@
 package ma.uca.ensas.ecommercebackendspring.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto;
 import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto.AuthorityDtoBuilder;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-29T17:09:12+0000",
+    date = "2022-04-02T18:50:17+0000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component
@@ -41,5 +43,19 @@ public class AuthorityMapperImpl implements AuthorityMapper {
         authority.permission( authorityDto.getPermission() );
 
         return authority.build();
+    }
+
+    @Override
+    public List<Authority> authorityDtosToAuthorities(List<AuthorityDto> authorityDtos) {
+        if ( authorityDtos == null ) {
+            return null;
+        }
+
+        List<Authority> list = new ArrayList<Authority>( authorityDtos.size() );
+        for ( AuthorityDto authorityDto : authorityDtos ) {
+            list.add( authorityDtoToAuthority( authorityDto ) );
+        }
+
+        return list;
     }
 }

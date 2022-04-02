@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Set;
 
 @Component
@@ -76,35 +77,23 @@ public class DataLoader implements CommandLineRunner {
 
         log.info("Creating Roles ...");
         Role adminRole = roleRepository.save(
-                Role.builder().name("ADMIN").build()
+                new Role("ADMIN")
         );
         Role merchantRole = roleRepository.save(
-                Role.builder().name("MERCHANT").build()
+                new Role("MERCHANT")
         );
         adminRole.setAuthorities(Set.of(createMerchant, createCategorie, createReference, createProduct, getReference, getProduct, getCategory, getMerchant, getOrders));
         merchantRole.setAuthorities(Set.of(createCategorie, getCategory, getOrders, createProduct, getProduct, getReference, getMerchant));
-
+        // TODO : Understand what the hell is going on here
+        roleRepository.saveAll(Arrays.asList(adminRole,merchantRole));
         log.info("Creating Users");
-        userRepository.save(User.builder()
-                .firstname("Imad Eddine")
-                .lastname("El Hajali")
-                .username("imadeddine")
-                .password(passwordEncoder.encode("admin"))
-                .email("imadhajali66@gmail.com")
-                .address("Essaouira")
-                .phone("0664523185")
-                .role(adminRole)
-                .build()
-        );
-        userRepository.save(User.builder()
-                .firstname("Youssef")
-                .lastname("Attar")
-                .username("youssef")
-                .password(passwordEncoder.encode("merchant"))
-                .email("email@gmail.com")
-                .role(merchantRole)
-                .build()
-        );
-
+        User user1 = new User();
+        user1.setFirstname("Imad Eddine");
+        user1.setLastname("El Hajali");
+        user1.setUsername("imadeddine");
+        user1.setPassword("admin");
+        user1.setEmail("email@gmail.com");
+        user1.getRoles().add(adminRole);
+        userRepository.save(user1);
     }
 }

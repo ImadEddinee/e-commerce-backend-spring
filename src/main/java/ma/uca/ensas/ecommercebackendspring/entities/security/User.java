@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,8 +18,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -39,7 +38,8 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")}
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
+    private boolean enabled = false;
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdDate;
@@ -82,6 +82,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

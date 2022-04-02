@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 @Data
 @NoArgsConstructor
@@ -13,6 +14,7 @@ import java.util.Set;
 public class RoleDto {
 
     private Long id;
+    @NotBlank
     private String name;
     private Set<AuthorityDto> authorities;
 }
