@@ -1,4 +1,4 @@
-package ma.uca.ensas.ecommercebackendspring.entities.security;
+package ma.uca.ensas.ecommercebackendspring.entities;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,13 +21,9 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private String firstname;
-    private String lastname;
     private String username;
     private String password;
     private String email;
-    private String phone;
-    private String address;
     @Singular
     @ManyToMany(
             cascade = CascadeType.MERGE,

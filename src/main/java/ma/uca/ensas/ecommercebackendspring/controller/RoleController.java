@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/authenticate/roles")
+@RequestMapping("/api/v1/roles")
 public class RoleController {
 
     private final RoleService roleService;
@@ -32,8 +32,8 @@ public class RoleController {
 
     @PutMapping("/{id}/authorities")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addAuthoritiesToRole(@PathVariable("id") Long id, @RequestBody @Valid List<AuthorityDto> authorityDtos) {
-        log.info("hoooooooooooooooo");
+    public void addAuthoritiesToRole(@PathVariable("id") Long id,
+                                     @RequestBody @Valid List<AuthorityDto> authorityDtos) {
         roleService.addAuthoritiesToRole(id, authorityDtos);
     }
 }

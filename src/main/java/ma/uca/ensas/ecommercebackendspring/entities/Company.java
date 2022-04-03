@@ -2,18 +2,19 @@ package ma.uca.ensas.ecommercebackendspring.entities;
 
 import lombok.*;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@ToString(callSuper = true)
-@DiscriminatorValue("C")
+
+
 @AllArgsConstructor()
 @NoArgsConstructor
-public class Company extends Merchant{
+public class Company{
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String activity;
 }

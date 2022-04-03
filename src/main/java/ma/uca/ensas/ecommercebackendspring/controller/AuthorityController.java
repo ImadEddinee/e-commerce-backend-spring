@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/authenticate/authorities")
+@RequestMapping("/api/v1/authorities")
 public class AuthorityController {
 
     private final AuthorityService authorityService;

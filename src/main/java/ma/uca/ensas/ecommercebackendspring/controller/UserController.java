@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("api/v1/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -21,8 +21,6 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers(){
-        log.info("fdgcgvbnbh");
-        System.out.println("fsdgdfdd66");
         return new ResponseEntity<>(userService.getAllUsers(),HttpStatus.OK);
     }
 

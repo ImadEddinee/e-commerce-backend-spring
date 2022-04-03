@@ -31,6 +31,6 @@ public class UserDto {
     private String email;
     private String phone;
     private String address;
-    private boolean enabled;
+    private String enabled;
     private Set<RoleDto> roles;
 }

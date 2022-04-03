@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ma.uca.ensas.ecommercebackendspring.entities.security.User;
 
 import javax.persistence.*;
 

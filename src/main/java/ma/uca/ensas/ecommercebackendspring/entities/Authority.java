@@ -1,4 +1,4 @@
-package ma.uca.ensas.ecommercebackendspring.entities.security;
+package ma.uca.ensas.ecommercebackendspring.entities;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +18,6 @@ import java.util.Set;
 public class Authority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
     private String permission;
     @ManyToMany(mappedBy = "authorities")
     @Singular

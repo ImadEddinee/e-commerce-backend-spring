@@ -18,19 +18,11 @@ import java.util.List;
         length = 1
 )
 @Table(name = "MERCHANT")
-public abstract class Merchant {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Lob
-    @NotEmpty(message = "Description is required")
+public abstract class Merchant extends Account {
+
     private String description;
-    @NotEmpty(message = "Address is required")
-    private String address;
-    @NotEmpty(message = "Email is required")
-    private String email;
-    @NotEmpty(message = "Phone is required")
-    private String phone;
     private String webSite;
+
     @OneToMany(
             mappedBy = "merchant",
             fetch = FetchType.EAGER,

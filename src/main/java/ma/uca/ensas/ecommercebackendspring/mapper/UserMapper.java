@@ -1,7 +1,7 @@
 package ma.uca.ensas.ecommercebackendspring.mapper;
 
 import ma.uca.ensas.ecommercebackendspring.dto.UserDto;
-import ma.uca.ensas.ecommercebackendspring.entities.security.User;
+import ma.uca.ensas.ecommercebackendspring.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto;
 import ma.uca.ensas.ecommercebackendspring.dto.RoleDto;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Authority;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Role;
-import ma.uca.ensas.ecommercebackendspring.exceptions.RoleAlreadyExistsException;
+import ma.uca.ensas.ecommercebackendspring.entities.Authority;
+import ma.uca.ensas.ecommercebackendspring.entities.Role;
+import ma.uca.ensas.ecommercebackendspring.exceptions.ApiRequestException;
 import ma.uca.ensas.ecommercebackendspring.mapper.AuthorityMapper;
 import ma.uca.ensas.ecommercebackendspring.mapper.RoleMapper;
 import ma.uca.ensas.ecommercebackendspring.repositories.RoleRepository;
@@ -33,23 +33,25 @@ public class RoleService {
 
     public RoleDto saveRole(RoleDto roleDto){
         if (roleRepository.findByName(roleDto.getName()).isPresent()){
-            throw new RoleAlreadyExistsException("Role name already exists");
+            throw new ApiRequestException("Role with name : " + roleDto.getName() + " already exists");
         }
         return roleMapper.roleToRoleDto(roleRepository.save(roleMapper.roleDtoToRole(roleDto)));
     }
 
     public void addAuthoritiesToRole(Long id, List<AuthorityDto> authorityDtos){
-        List<Authority> authorities = authorityMapper.authorityDtosToAuthorities(authorityDtos);
-        Role role = roleRepository.findById(id).orElseThrow(
-                () -> new IllegalStateException("Role doesn't exists"));
-        Set<String> existedAuthoritiesNames = role.getAuthorities().stream()
-                .map(Authority::getPermission)
-                .collect(Collectors.toSet());
-        Set<Authority> authoritiesToAdd = authorities.stream()
-                .filter(authority -> !existedAuthoritiesNames
-                        .contains(authority.getPermission()))
-                .collect(Collectors.toSet());
-        role.getAuthorities().addAll(authoritiesToAdd);
-        roleRepository.save(role);
+        if (authorityDtos.size() > 0){
+            List<Authority> authorities = authorityMapper.authorityDtosToAuthorities(authorityDtos);
+            Role role = roleRepository.findById(id).orElseThrow(
+                    () -> new ApiRequestException("Role with id = " + id + " doesn't exists"));
+            Set<String> existedAuthoritiesNames = role.getAuthorities().stream()
+                    .map(authority1 -> authority1.getPermission().toLowerCase())
+                    .collect(Collectors.toSet());
+            Set<Authority> authoritiesToAdd = authorities.stream()
+                    .filter(authority -> !existedAuthoritiesNames
+                            .contains(authority.getPermission().toLowerCase()))
+                    .collect(Collectors.toSet());
+            role.getAuthorities().addAll(authoritiesToAdd);
+            roleRepository.save(role);
+        }
     }
 }

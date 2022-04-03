@@ -1,6 +1,7 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "COUNTRY")
@@ -19,10 +19,7 @@ public class Country {
     @NotBlank
     private String name;
 
-    public Country(String name) {
-        this.name = name;
-    }
-
+    @JsonIgnore
     @OneToMany(mappedBy = "country",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL

@@ -2,14 +2,10 @@ package ma.uca.ensas.ecommercebackendspring.bootstrap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.uca.ensas.ecommercebackendspring.entities.City;
-import ma.uca.ensas.ecommercebackendspring.entities.Country;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Authority;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Role;
-import ma.uca.ensas.ecommercebackendspring.entities.security.User;
+import ma.uca.ensas.ecommercebackendspring.entities.*;
+
 import ma.uca.ensas.ecommercebackendspring.repositories.*;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +32,8 @@ public class DataLoader implements CommandLineRunner {
     @Transactional
     void loadData(){
         log.info("Creating Country ...");
-        Country country = new Country("Maroc");
+        Country country = new Country();
+        country.setName("Maroc");
         countryRepository.save(country);
 
         log.info("Creating Cities in {}",country);
@@ -88,10 +85,8 @@ public class DataLoader implements CommandLineRunner {
         roleRepository.saveAll(Arrays.asList(adminRole,merchantRole));
         log.info("Creating Users");
         User user1 = new User();
-        user1.setFirstname("Imad Eddine");
-        user1.setLastname("El Hajali");
         user1.setUsername("imadeddine");
-        user1.setPassword("admin");
+        user1.setPassword(passwordEncoder.encode("admin"));
         user1.setEmail("email@gmail.com");
         user1.getRoles().add(adminRole);
         userRepository.save(user1);

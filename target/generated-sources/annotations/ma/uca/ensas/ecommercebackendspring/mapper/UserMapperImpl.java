@@ -6,14 +6,14 @@ import javax.annotation.processing.Generated;
 import ma.uca.ensas.ecommercebackendspring.dto.RoleDto;
 import ma.uca.ensas.ecommercebackendspring.dto.UserDto;
 import ma.uca.ensas.ecommercebackendspring.dto.UserDto.UserDtoBuilder;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Role;
-import ma.uca.ensas.ecommercebackendspring.entities.security.User;
+import ma.uca.ensas.ecommercebackendspring.entities.Role;
+import ma.uca.ensas.ecommercebackendspring.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-02T18:50:17+0000",
+    date = "2022-04-03T18:19:04+0000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component
@@ -31,15 +31,13 @@ public class UserMapperImpl implements UserMapper {
         User user = new User();
 
         user.setId( userDto.getId() );
-        user.setFirstname( userDto.getFirstname() );
-        user.setLastname( userDto.getLastname() );
         user.setUsername( userDto.getUsername() );
         user.setPassword( userDto.getPassword() );
         user.setEmail( userDto.getEmail() );
-        user.setPhone( userDto.getPhone() );
-        user.setAddress( userDto.getAddress() );
         user.setRoles( roleDtoSetToRoleSet( userDto.getRoles() ) );
-        user.setEnabled( userDto.isEnabled() );
+        if ( userDto.getEnabled() != null ) {
+            user.setEnabled( Boolean.parseBoolean( userDto.getEnabled() ) );
+        }
 
         return user;
     }
@@ -55,12 +53,8 @@ public class UserMapperImpl implements UserMapper {
         userDto.id( user.getId() );
         userDto.username( user.getUsername() );
         userDto.password( user.getPassword() );
-        userDto.firstname( user.getFirstname() );
-        userDto.lastname( user.getLastname() );
         userDto.email( user.getEmail() );
-        userDto.phone( user.getPhone() );
-        userDto.address( user.getAddress() );
-        userDto.enabled( user.isEnabled() );
+        userDto.enabled( String.valueOf( user.isEnabled() ) );
         userDto.roles( roleSetToRoleDtoSet( user.getRoles() ) );
 
         return userDto.build();

@@ -7,14 +7,14 @@ import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto;
 import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto.AuthorityDtoBuilder;
 import ma.uca.ensas.ecommercebackendspring.dto.RoleDto;
 import ma.uca.ensas.ecommercebackendspring.dto.RoleDto.RoleDtoBuilder;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Authority;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Authority.AuthorityBuilder;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Role;
+import ma.uca.ensas.ecommercebackendspring.entities.Authority;
+import ma.uca.ensas.ecommercebackendspring.entities.Authority.AuthorityBuilder;
+import ma.uca.ensas.ecommercebackendspring.entities.Role;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-02T18:50:17+0000",
+    date = "2022-04-03T18:19:05+0000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component

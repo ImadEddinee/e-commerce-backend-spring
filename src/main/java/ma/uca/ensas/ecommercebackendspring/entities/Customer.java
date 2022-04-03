@@ -15,29 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "CUSTOMER")
-public class Customer {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotEmpty(message = "First name cannot be empty")
-    @Size(min = 4,max = 20,message = "The first name should be between 4 and 20 characters")
+public class Customer extends Account{
+
     private String firstName;
-    @NotEmpty(message = "Last name cannot be empty")
-    @Size(min = 4,max = 30,message = "The last name should be between 4 and 20 characters")
     private String lastName;
-    @NotEmpty(message = "Username is required")
-    private String userName;
-    @NotEmpty(message = "Password is required")
-    private String password;
-    @Email
-    @NotEmpty(message = "Email is required")
-    private String email;
-    @Nullable
-    private String address;
-    @ManyToOne
-    @JoinColumn(name = "city_id",referencedColumnName = "id")
-    private City city;
-    @OneToOne(mappedBy = "customer")
-    private ShoppingCart shoppingCart;
+
     @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     private List<Order> orders;
 }

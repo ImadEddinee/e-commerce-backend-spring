@@ -2,6 +2,7 @@ package ma.uca.ensas.ecommercebackendspring.service;
 
 import lombok.RequiredArgsConstructor;
 import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto;
+import ma.uca.ensas.ecommercebackendspring.exceptions.ApiRequestException;
 import ma.uca.ensas.ecommercebackendspring.mapper.AuthorityMapper;
 import ma.uca.ensas.ecommercebackendspring.repositories.AuthorityRepository;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,10 @@ public class AuthorityService {
                 .collect(Collectors.toList());
     }
 
-    public AuthorityDto getAuthority(Long id){
-        return authorityRepository.findById(id)
-                .map(authorityMapper::authorityToAuthorityDto)
-                .orElseThrow(() -> new IllegalStateException("Authority doesn't exist"));
-    }
-
     public AuthorityDto saveAuthority(AuthorityDto authorityDto){
+        if (authorityRepository.findByPermission(authorityDto.getPermission()).isPresent()){
+            throw new ApiRequestException("Permission name : " + authorityDto.getPermission() + " already exists");
+        }
         return authorityMapper.authorityToAuthorityDto(authorityRepository.save(authorityMapper.authorityDtoToAuthority(authorityDto)));
-    }
-
-    public void deleteAuthorityById(Long id){
-        authorityRepository.deleteById(id);
     }
 }

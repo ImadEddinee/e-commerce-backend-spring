@@ -1,6 +1,6 @@
 package ma.uca.ensas.ecommercebackendspring.repositories;
 
-import ma.uca.ensas.ecommercebackendspring.entities.security.User;
+import ma.uca.ensas.ecommercebackendspring.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,9 +24,11 @@ public class City {
         this.country = country;
     }
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "country_id",referencedColumnName = "id")
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
+    @JsonIgnore
     @OneToMany(mappedBy = "city",fetch = FetchType.LAZY)
-    private List<Customer> customers;
+    private List<Account> accounts;
 }

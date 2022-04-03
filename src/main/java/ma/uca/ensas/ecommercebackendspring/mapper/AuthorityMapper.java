@@ -1,7 +1,7 @@
 package ma.uca.ensas.ecommercebackendspring.mapper;
 
 import ma.uca.ensas.ecommercebackendspring.dto.AuthorityDto;
-import ma.uca.ensas.ecommercebackendspring.entities.security.Authority;
+import ma.uca.ensas.ecommercebackendspring.entities.Authority;
 import org.mapstruct.Mapper;
 
 import java.util.List;

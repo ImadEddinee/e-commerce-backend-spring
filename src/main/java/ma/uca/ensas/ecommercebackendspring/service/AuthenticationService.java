@@ -3,15 +3,17 @@ package ma.uca.ensas.ecommercebackendspring.service;
 import lombok.RequiredArgsConstructor;
 import ma.uca.ensas.ecommercebackendspring.dto.AuthenticationRequestDto;
 import ma.uca.ensas.ecommercebackendspring.dto.UserDto;
+import ma.uca.ensas.ecommercebackendspring.entities.User;
 import ma.uca.ensas.ecommercebackendspring.entities.VerificationToken;
-import ma.uca.ensas.ecommercebackendspring.entities.security.User;
 import ma.uca.ensas.ecommercebackendspring.mapper.UserMapper;
+import ma.uca.ensas.ecommercebackendspring.repositories.UserRepository;
 import ma.uca.ensas.ecommercebackendspring.repositories.VerificationTokenRepository;
-import ma.uca.ensas.ecommercebackendspring.security.JwtProvider;
+import ma.uca.ensas.ecommercebackendspring.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -21,11 +23,12 @@ import java.util.UUID;
 public class AuthenticationService {
 
     private final UserService userService;
-    private final VerificationTokenRepository verificationTokenRepository;
-    private final MailService mailService;
     private final UserMapper userMapper;
+    private final MailService mailService;
+    private final VerificationTokenRepository verificationTokenRepository;
+    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
-    private final JwtProvider jwtProvider;
+    private final JwtUtil jwtUtil;
 
     public UserDto signUp(UserDto userDto){
         User user = userMapper.userDtoToUser(userService.saveUser(userDto));
@@ -38,11 +41,21 @@ public class AuthenticationService {
 
     public String login(AuthenticationRequestDto requestDto){
         Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(requestDto.getUsername(), requestDto.getPassword())
-        );
-        // Store the authenticate object into the Security context
+                new UsernamePasswordAuthenticationToken(requestDto.getUsername(), requestDto.getPassword()));
+        // Store the authentication object into the security context
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-        return "ho";
+        UserDetails userDetails = userService.loadUserByUsername(requestDto.getUsername());
+        return jwtUtil.generateToken(userDetails);
+    }
+
+    public void enableAccount(String token){
+        VerificationToken verificationToken = verificationTokenRepository
+                .findByToken(token)
+                .orElseThrow(()->new IllegalStateException("Invalid token"));
+        User user = userRepository.findByUsername(verificationToken.getUser().getUsername())
+                .orElseThrow(()->new IllegalStateException("user doenst exists"));
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 
     private String generateVerificationToken(User user){

@@ -2,7 +2,6 @@ package ma.uca.ensas.ecommercebackendspring.service.imp;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.uca.ensas.ecommercebackendspring.exceptions.SpringWellmartException;
 import ma.uca.ensas.ecommercebackendspring.service.MailService;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,8 +17,8 @@ public class MailServiceImp implements MailService {
 
     private final JavaMailSender mailSender;
 
-    @Async
     @Override
+    @Async
     public void sendMail(String subject, String body, String receiver) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
@@ -32,7 +31,7 @@ public class MailServiceImp implements MailService {
             mailSender.send(messagePreparator);
             log.info("the email is sent ...");
         }catch (MailException e){
-            throw new SpringWellmartException("Exception occurred when sending email to " + receiver);
+            throw new IllegalStateException("Exception occurred when sending email to " + receiver);
         }
     }
 }
