@@ -12,8 +12,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "COUNTRY")
 public class Country {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank

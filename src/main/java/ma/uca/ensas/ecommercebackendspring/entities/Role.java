@@ -1,5 +1,6 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -7,12 +8,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Role {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,7 @@ public class Role {
         this.name = name;
     }
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
     @Singular
@@ -35,7 +37,7 @@ public class Role {
             joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id",referencedColumnName = "id")}
     )
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdDate;

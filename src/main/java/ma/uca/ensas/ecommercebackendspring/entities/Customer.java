@@ -13,12 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "CUSTOMER")
-public class Customer extends Account{
-
-    private String firstName;
-    private String lastName;
+public class Customer extends User{
 
     @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     private List<Order> orders;

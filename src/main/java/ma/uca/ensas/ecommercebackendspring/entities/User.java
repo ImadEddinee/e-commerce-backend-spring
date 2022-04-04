@@ -8,6 +8,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
@@ -18,12 +20,23 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String username;
     private String password;
+    private String firstname;
+    private String lastname;
     private String email;
+    private String phone;
+    private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id",referencedColumnName = "id")
+    private City city;
+
     @Singular
     @ManyToMany(
             cascade = CascadeType.MERGE,

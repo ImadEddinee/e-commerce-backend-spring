@@ -1,28 +1,25 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-        name = "merchant_type",
-        discriminatorType = DiscriminatorType.STRING,
-        length = 1
-)
-@Table(name = "MERCHANT")
-public abstract class Merchant extends Account {
+public class Merchant extends User {
 
+    @Enumerated(EnumType.STRING)
+    private MerchantType merchantType;
     private String description;
     private String webSite;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "merchant",
             fetch = FetchType.EAGER,

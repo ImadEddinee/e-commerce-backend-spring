@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-03T18:19:04+0000",
+    date = "2022-04-04T17:40:12+0000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component
@@ -33,11 +33,13 @@ public class UserMapperImpl implements UserMapper {
         user.setId( userDto.getId() );
         user.setUsername( userDto.getUsername() );
         user.setPassword( userDto.getPassword() );
+        user.setFirstname( userDto.getFirstname() );
+        user.setLastname( userDto.getLastname() );
         user.setEmail( userDto.getEmail() );
+        user.setPhone( userDto.getPhone() );
+        user.setAddress( userDto.getAddress() );
         user.setRoles( roleDtoSetToRoleSet( userDto.getRoles() ) );
-        if ( userDto.getEnabled() != null ) {
-            user.setEnabled( Boolean.parseBoolean( userDto.getEnabled() ) );
-        }
+        user.setEnabled( userDto.isEnabled() );
 
         return user;
     }
@@ -53,8 +55,12 @@ public class UserMapperImpl implements UserMapper {
         userDto.id( user.getId() );
         userDto.username( user.getUsername() );
         userDto.password( user.getPassword() );
+        userDto.firstname( user.getFirstname() );
+        userDto.lastname( user.getLastname() );
         userDto.email( user.getEmail() );
-        userDto.enabled( String.valueOf( user.isEnabled() ) );
+        userDto.phone( user.getPhone() );
+        userDto.address( user.getAddress() );
+        userDto.enabled( user.isEnabled() );
         userDto.roles( roleSetToRoleDtoSet( user.getRoles() ) );
 
         return userDto.build();

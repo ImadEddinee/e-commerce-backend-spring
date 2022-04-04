@@ -30,10 +30,4 @@ public class RoleController {
         return roleService.saveRole(roleDto);
     }
 
-    @PutMapping("/{id}/authorities")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addAuthoritiesToRole(@PathVariable("id") Long id,
-                                     @RequestBody @Valid List<AuthorityDto> authorityDtos) {
-        roleService.addAuthoritiesToRole(id, authorityDtos);
-    }
 }
