@@ -10,6 +10,8 @@ import java.util.List;
 public interface AdminMapper {
 
     AdminDto adminToAdminDto(Admin admin);
+
     Admin adminDtoToAdmin(AdminDto adminDto);
+
     List<AdminDto> adminsToAdminsDtos(List<Admin> admins);
 }

@@ -1,5 +1,6 @@
 package ma.uca.ensas.ecommercebackendspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.apache.catalina.LifecycleState;
 
@@ -23,7 +24,9 @@ public class Category {
     @Lob
     @NotBlank
     private String description;
-    private String imageBase64;
+    private String imageUrl;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 }

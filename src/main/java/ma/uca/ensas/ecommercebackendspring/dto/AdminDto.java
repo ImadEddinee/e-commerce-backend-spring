@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,5 +33,5 @@ public class AdminDto {
     private String phone;
     private String address;
     private boolean enabled = true;
-    private Set<RoleDto> roles;
+    private List<Long> rolesId;
 }
