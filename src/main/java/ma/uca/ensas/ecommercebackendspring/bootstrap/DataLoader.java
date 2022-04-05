@@ -33,7 +33,6 @@ public class DataLoader implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final ProductExperienceRepository productExperienceRepository;
     private final ProductExpMapper productExpMapper;
-    private final DeliveryManRepository deliveryManRepository;
     private final CustomerRepository customerRepository;
 
     @Override
@@ -90,7 +89,7 @@ public class DataLoader implements CommandLineRunner {
         );
         adminRole.setAuthorities(Set.of(createMerchant, createCategorie, createReference, createProduct, getReference, getProduct, getCategory, getMerchant, getOrders));
         merchantRole.setAuthorities(Set.of(createCategorie, getCategory, getOrders, createProduct, getProduct, getReference, getMerchant));
-        // TODO : Understand what the hell is going on here
+
         roleRepository.saveAll(Arrays.asList(adminRole,merchantRole));
 
         log.info("Creating Users");
@@ -138,11 +137,6 @@ public class DataLoader implements CommandLineRunner {
         product.setProductStatus(ProductStatus.AVAILABLE);
         productRepository.save(product);
 
-        deliveryManRepository.save(
-                DeliveryMan.builder()
-                        .firstName("Kamal").lastName("Jamal").address("address")
-                        .phoneNumber("03685335464").build()
-        );
 
     }
 }

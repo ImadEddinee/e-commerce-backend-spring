@@ -26,14 +26,7 @@ public class Product {
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "orderDetail_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<OrderDetail> orderDetailList;
+
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;

@@ -25,14 +25,5 @@ public class Order {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "shipping_id", referencedColumnName = "id")
-    private ShippingInfo shippingInfo;
 
-    @OneToOne(mappedBy = "order")
-    private OrderDetail orderDetail;
-
-    @ManyToOne
-    @JoinColumn(name = "deliveryman_id",referencedColumnName = "id")
-    private DeliveryMan deliveryMan;
 }
